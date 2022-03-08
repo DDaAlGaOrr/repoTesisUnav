@@ -4,7 +4,7 @@ const cnx = mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'root',
-    database:'biblio_tesis'
+    database:'biblio_impresiones'
     // database:'sakila'
 })
 /* --------------------------------------------------------------------------------------------------------- */
