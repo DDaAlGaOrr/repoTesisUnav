@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 const cnx = require('./dbConection')
 const session = require('express-session')
-const bcript = require('bcrypt')
+// const bcript = require('bcrypt')
 const md5 = require('blueimp-md5')
 /* --------------------------------------------------------------------------------------------------------- */
 app.set('view engine','ejs');
@@ -14,6 +14,9 @@ app.use(session({
     resave:true,
     saveUninitialized:true
 }))
+app.use(express.static('public'));
+// app.use("/css/", express.static(__dirname  + "public/css/"));
+// app.use("/image/", express.static(__dirname  + "public/image/"));
 /* --------------------------------------------------------------------------------------------------------- */
 // Page login
 app.get('/login',(req,res)=>{
