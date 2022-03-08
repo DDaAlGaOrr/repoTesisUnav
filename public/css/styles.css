@@ -1,0 +1,26 @@
+.image-login-unav{
+    height: 200px;
+    width: 200px;
+}
+.txt-montserrat-600{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+.color-white{
+    color: #fff;
+}
+.color-yellow{
+    color: #e7b350;
+}
+.bk-color-yellow{
+    background-color: #e7b350;
+}
+.color-green{
+    color: #136557;
+}
+.bk-color-green{
+    background-color: #136557;
+}
+form{
+    text-align: center;
+}
