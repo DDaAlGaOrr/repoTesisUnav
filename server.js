@@ -14,9 +14,8 @@ app.use(session({
     resave:true,
     saveUninitialized:true
 }))
+//configuracion de archivos estaticos 
 app.use(express.static('public'));
-// app.use("/css/", express.static(__dirname  + "public/css/"));
-// app.use("/image/", express.static(__dirname  + "public/image/"));
 /* --------------------------------------------------------------------------------------------------------- */
 // Page login
 app.get('/login',(req,res)=>{
@@ -41,15 +40,32 @@ app.post('/login',(req,res)=>{
 /* --------------------------------------------------------------------------------------------------------- */
 //page home
 app.get('/', (req,res)=>{
-    if(req.session.logged){
-        res.render('pages/index',{
-            login:true,
-            name:req.session.name
+    // if(req.session.logged){
+        const limit = 5
+        req.query.page = 1
+        const page = req.query.page
+        const offset = (page-1) * limit
+        cnx.query(`select * from imagenes limit ${limit} offset ${offset}`,(err,results,fields)=>{
+            if(err){
+                console.log(err)
+            }
+            let jsonResult = {
+                'tesisPageCount': results.length,
+                'pageNumber':page,
+                'tesis':results
+            }
+            let json = JSON.parse(JSON.stringify(jsonResult))
+            console.log(`tesis por pagina: ${page}`)
+            console.log(json)
         })
+        // res.render('pages/index',{
+        //     login:true,
+        //     name:req.session.name
+        // })
         
-    }else{
-         res.redirect('/login')
-    } 
+    // }else{
+    //      res.redirect('/login')
+    // } 
 })
 /* --------------------------------------------------------------------------------------------------------- */
 //config server

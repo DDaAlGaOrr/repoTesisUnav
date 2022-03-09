@@ -1,12 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<%- include('../partials/head'); %>
 <body>
-    <h1>Soy el index, variable desde el backend: <%= name%></h1>
+    <%- include('../partials/header'); %>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col">Enlace</th>
+                    <th class="col">Descripción</th>
+                    <th class="col">Escuela</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="#"><img src="image/tesis-icono.png" alt="" class="img-tesis"></a></td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur doloribus esse perspiciatis dicta. Impedit placeat eius aperiam quibusdam reprehenderit distinctio aut corporis repudiandae eum, blanditiis at sequi. Sunt, non similique!</td>
+                    <td>Escuela de ingenieria</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
+<%- include('../partials/footer'); %>
 </html>
