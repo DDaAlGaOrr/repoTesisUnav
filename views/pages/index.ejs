@@ -16,8 +16,17 @@
                     <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur doloribus esse perspiciatis dicta. Impedit placeat eius aperiam quibusdam reprehenderit distinctio aut corporis repudiandae eum, blanditiis at sequi. Sunt, non similique!</td>
                     <td>Escuela de ingenieria</td>
                 </tr>
+                <%console.log(data.pageNumber)%>
+                <%console.log(data.totalPaginas)%>
+                <%console.log(data.tesis[0].nombre)%>
+                <%console.log(data.tesis[0].descripcion)%>
+                <%console.log(data.tesis[0].tipo_escuela)%>
+                <%console.log(data.tesis[0].path)%>
             </tbody>
         </table>
+        <%for(let i = 0; i<data.pageNumber; i++){%>
+            <p><%i%></p>
+        <%}%>
     </div>
 </body>
 <%- include('../partials/footer'); %>
