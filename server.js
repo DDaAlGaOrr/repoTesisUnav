@@ -5,34 +5,37 @@ const cnx = require('./dbConection')
 const session = require('express-session')
 // const bcript = require('bcrypt')
 const md5 = require('blueimp-md5')
-const { off } = require('./dbConection')
+const {
+    off
+} = require('./dbConection')
 /* --------------------------------------------------------------------------------------------------------- */
-app.set('view engine','ejs');
-app.use(express.urlencoded({extended:false}));
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({
+    extended: false
+}));
 app.use(express.json());
 app.use(session({
-    secret:'secret',
-    resave:true,
-    saveUninitialized:true
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
 }))
 //configuracion de archivos estaticos 
 app.use(express.static('public'));
 /* --------------------------------------------------------------------------------------------------------- */
 // Page login
-app.get('/login',(req,res)=>{
+app.get('/login', (req, res) => {
     res.render('pages/login.ejs')
 })
 // modulo login
-app.post('/login',(req,res)=>{
+app.post('/login', (req, res) => {
     let username = req.body.username
     let password = req.body.password
     let passMd5 = md5(password)
-    cnx.query(`select * from login where nombre = ? and contrasena = ?`,[username,passMd5],(err,results)=>{
+    cnx.query(`select * from login where nombre = ? and contrasena = ?`, [username, passMd5], (err, results) => {
         // console.log(results)
-        if(results.length == 0){
+        if (results.length == 0) {
             console.log('Usuario o contraseña incorrectos')
-        }
-        else{
+        } else {
             req.session.name = results[0].nombre
             req.session.logged = true
             res.redirect('/')
@@ -41,56 +44,45 @@ app.post('/login',(req,res)=>{
 })
 /* --------------------------------------------------------------------------------------------------------- */
 //page home
-app.get('/', (req,res)=>{
-    // if(req.session.logged){
-        const selectSchool = req.query.selectSchool
-        const selectPage = req.query.pageSelect
-        console.log(selectSchool)
-        console.log(selectPage)
-        const limit = 5
-        let page = req.query.pageSelect
-        if(page == undefined){
-            page = 1
+app.get('/', (req, res) => {
+    let selectSchool = req.query.selectSchool
+    let selectPage = req.query.pageSelect
+    const limit = 5
+    if (selectPage == undefined) {
+        selectPage = 1
+    }
+    if (selectSchool == undefined) {
+        selectSchool = ""
+    }
+    console.log(selectPage)
+    console.log(selectSchool)
+    const offset = (selectPage - 1) * limit
+    cnx.query(`select distinct SQL_CALC_FOUND_ROWS * from imagenes where imagenes.tipo_escuela like '%${selectSchool}%' LIMIT ${offset}, ${limit}`, (err, results, fields) => {
+        if (err) {
+            console.log(err)
         }
-        const offset = (page-1) * limit
-        cnx.query(`select distinct SQL_CALC_FOUND_ROWS * from imagenes where imagenes.tipo_escuela like '%${selectSchool}%' LIMIT ${offset}, ${limit}`,(err,results,fields)=>{
-                  
-            if(err){
+        cnx.query('SELECT FOUND_ROWS() as total', (err, result, fields) => {
+            if (err) {
                 console.log(err)
             }
-            cnx.query('SELECT FOUND_ROWS() as total',(err,result,fields)=>{
-                if(err){
-                    console.log(err)
-                }
-                let totalPaginas = Math.ceil(result[0].total/limit)
-                let jsonResult = {
-                    'tesisPageCount': results.length,
-                    'pageNumber':page,
-                    'tesis':results,
-                    'totalPaginas':totalPaginas
-                }
-                let json = JSON.parse(JSON.stringify(jsonResult))
-                // console.log(`tesis por pagina: ${limit}`)
-                // console.log(offset)
-                // console.log(json)
-                 res.render('pages/index', {
-                     login: true,
-                     name: req.session.name,
-                     data:jsonResult,
-                     schoolSelect: selectSchool,
-                     pageSelect:selectPage
-                 })
+            let totalPaginas = Math.ceil(result[0].total / limit)
+            let jsonResult = {
+                'tesisPageCount': results.length,
+                'pageNumber': selectPage,
+                'tesis': results,
+                'totalPaginas': totalPaginas
+            }
+            res.render('pages/index', {
+                data: jsonResult,
+                schoolSelect: selectSchool,
+                pageSelect: selectPage
             })
-        })  
-    // }else{
-    //      res.redirect('/login')
-    // } 
+        })
+    })
 })
 /* --------------------------------------------------------------------------------------------------------- */
 //config server
-app.listen(port,() =>{
+app.listen(port, () => {
     console.log(`server on port ${port}`)
 })
 /* --------------------------------------------------------------------------------------------------------- */
-
-
