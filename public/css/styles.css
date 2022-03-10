@@ -2,6 +2,18 @@
     height: 200px;
     width: 200px;
 }
+.txt-montserrat-300{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+}
+.txt-montserrat-400{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400; 
+}
+.txt-montserrat-500{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;  
+}
 .txt-montserrat-600{
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;

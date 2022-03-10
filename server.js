@@ -3,6 +3,7 @@ const app = express()
 const port = 3000
 const cnx = require('./dbConection')
 const session = require('express-session')
+const fs = require('fs')
 // const bcript = require('bcrypt')
 const md5 = require('blueimp-md5')
 const {
@@ -66,19 +67,29 @@ app.get('/', (req, res) => {
                 console.log(err)
             }
             let totalPaginas = Math.ceil(result[0].total / limit)
-            let jsonResult = {
+            let data = {
                 'tesisPageCount': results.length,
                 'pageNumber': selectPage,
                 'tesis': results,
                 'totalPaginas': totalPaginas
             }
             res.render('pages/index', {
-                data: jsonResult,
+                data: data,
                 schoolSelect: selectSchool,
                 pageSelect: selectPage
             })
         })
     })
+})
+/* --------------------------------------------------------------------------------------------------------- */
+app.get('/upload',(req,res)=>{
+    res.render('pages/upload')
+})
+app.post('/upload',(req,res)=>{
+    const schoolName = req.body.schoolName
+    const file = req.body.file
+    const description = req.body.description
+    console.log(schoolName)
 })
 /* --------------------------------------------------------------------------------------------------------- */
 //config server

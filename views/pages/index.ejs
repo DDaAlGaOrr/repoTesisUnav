@@ -5,18 +5,18 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th class="col">Enlace</th>
-                    <th class="col">Descripción</th>
-                    <th class="col">Escuela</th>
+                    <th class="col txt-montserrat-600 color-green">Enlace</th>
+                    <th class="col txt-montserrat-600 color-green">Descripción</th>
+                    <th class="col txt-montserrat-600 color-green">Escuela</th>
                 </tr>
             </thead>
             <tbody>
                 <%let numPerpage = data.tesisPageCount
                    for(let i = 0; i<numPerpage; i++){%>
                 <tr>
-                    <td><a href=<%= data.tesis[i].path%>><img src="image/tesis-icono.png" alt="" class="img-tesis"></a></td>
-                    <td><%=data.tesis[i].descripcion%></td>
-                    <td><%=data.tesis[i].tipo_escuela%></td>
+                    <td class="txt-montserrat-400"><a href=<%= data.tesis[i].path%>><img src="image/tesis-icono.png" alt="" class="img-tesis"></a></td>
+                    <td class="txt-montserrat-400"><%=data.tesis[i].descripcion%></td>
+                    <td class="txt-montserrat-400"><%=data.tesis[i].tipo_escuela%></td>
                 </tr>
                 <%}%>
             </tbody>
@@ -36,10 +36,10 @@
                 <option value="Teologia">Teología</option>
                 <option value="Ciencias">Ciencias</option>
               </select>
-                <input name='submit' type='submit' value='Buscar' class="btn" style="background-color: #ce9d40; color: white; height: 40px;"> <br>
+                <input name='submit' type='submit' value='Buscar' class="btn bk-color-yellow color-white"> <br>
                 <%const totalPages = data.totalPaginas
                     for(let i = 1; i<=totalPages; i++){%>
-                        <button name="pageSelect" value="<%=i%>" class="btn"><%=i%></button>
+                        <button name="pageSelect" value="<%=i%>" class="btn txt-montserrat-600 color-green"><%=i%></button>
                     <%}%>
             </form>
           </div>
