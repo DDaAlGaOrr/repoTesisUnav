@@ -43,15 +43,22 @@ app.post('/login',(req,res)=>{
 //page home
 app.get('/', (req,res)=>{
     // if(req.session.logged){
+        const selectSchool = req.query.selectSchool
+        const selectPage = req.query.pageSelect
+        console.log(selectSchool)
+        console.log(selectPage)
         const limit = 5
-        req.query.page = 1
-        const page = req.query.page
+        let page = req.query.pageSelect
+        if(page == undefined){
+            page = 1
+        }
         const offset = (page-1) * limit
-        cnx.query(`select * from imagenes limit ${limit} offset ${offset}`,(err,results,fields)=>{
+        cnx.query(`select distinct SQL_CALC_FOUND_ROWS * from imagenes where imagenes.tipo_escuela like '%${selectSchool}%' LIMIT ${offset}, ${limit}`,(err,results,fields)=>{
+                  
             if(err){
                 console.log(err)
             }
-            cnx.query('SELECT count(imagen_id) as total from imagenes',(err,result,fields)=>{
+            cnx.query('SELECT FOUND_ROWS() as total',(err,result,fields)=>{
                 if(err){
                     console.log(err)
                 }
@@ -69,12 +76,12 @@ app.get('/', (req,res)=>{
                  res.render('pages/index', {
                      login: true,
                      name: req.session.name,
-                     data:jsonResult
+                     data:jsonResult,
+                     schoolSelect: selectSchool,
+                     pageSelect:selectPage
                  })
             })
-        })
-       
-        
+        })  
     // }else{
     //      res.redirect('/login')
     // } 

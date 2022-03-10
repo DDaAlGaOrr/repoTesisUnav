@@ -11,23 +11,40 @@
                 </tr>
             </thead>
             <tbody>
+                <%let numPerpage = data.tesisPageCount
+                   for(let i = 0; i<numPerpage; i++){%>
                 <tr>
-                    <td><a href="#"><img src="image/tesis-icono.png" alt="" class="img-tesis"></a></td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur doloribus esse perspiciatis dicta. Impedit placeat eius aperiam quibusdam reprehenderit distinctio aut corporis repudiandae eum, blanditiis at sequi. Sunt, non similique!</td>
-                    <td>Escuela de ingenieria</td>
+                    <td><a href=<%= data.tesis[i].path%>><img src="image/tesis-icono.png" alt="" class="img-tesis"></a></td>
+                    <td><%=data.tesis[i].descripcion%></td>
+                    <td><%=data.tesis[i].tipo_escuela%></td>
                 </tr>
-                <%console.log(data.pageNumber)%>
-                <%console.log(data.totalPaginas)%>
-                <%console.log(data.tesis[0].nombre)%>
-                <%console.log(data.tesis[0].descripcion)%>
-                <%console.log(data.tesis[0].tipo_escuela)%>
-                <%console.log(data.tesis[0].path)%>
+                <%}%>
             </tbody>
         </table>
-        <%for(let i = 0; i<data.pageNumber; i++){%>
-            <p><%i%></p>
-        <%}%>
+        <div class="container mx-auto" style="width: 500px;">
+            <form action="/" method="get" class="d-flex mb-5" style="margin-top: 10px;" >
+              <select class="form-select" name="selectSchool" id="text3" style="width: 500px; margin-right: 10px;">
+                <!-- <option value="">Selecciona una opcion</option> -->
+                <option selected value="<%=schoolSelect%>"></option>
+                <option value="">Mostrar todas</option>
+                <option value="Ingenieria">Ingenieria en Sistemas</option>
+                <option value="DGrafico">Diseño Grafico</option>
+                <option value="Enfermeria">Enfermeria</option>
+                <option value="Nutricion">Nutrición</option>
+                <option value="Gastronomia">Gastronomia</option>
+                <option value="Contabilidad">Contabilidad</option>
+                <option value="Teologia">Teología</option>
+                <option value="Ciencias">Ciencias</option>
+              </select>
+                <input name='submit' type='submit' value='Buscar' class="btn" style="background-color: #ce9d40; color: white; height: 40px;"> <br>
+                <%const totalPages = data.totalPaginas
+                    for(let i = 1; i<=totalPages; i++){%>
+                        <button name="pageSelect" value="<%=i%>" class="btn"><%=i%></button>
+                    <%}%>
+            </form>
+          </div>
     </div>
+
 </body>
 <%- include('../partials/footer'); %>
 </html>
