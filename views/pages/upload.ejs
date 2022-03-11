@@ -2,12 +2,12 @@
 <body>
     <%- include('../partials/header'); %>
     <div class="container">
-		<form action="upload" method="post" enctype="multipart/form-data" class='demoTable'>
+		<form action="upload" method="post">
 			<h1 class="mt-3">
 				<center class="color-green txt-montserrat-600">Subir tesis</center>
 			</h1>
 			<!-- <label class="txt-montserrat-400" for="escuela">Selecciona una escuela:</label> -->
-			<select name="schoolName" class="form-select mb-4 txt-montserrat-500">
+			<select name="schoolName" id="schoolName" class="form-select mb-4 txt-montserrat-500">
 				<option selected>Eliga una escuela</option>
 				<option value="Ingenieria">Ingeniería en Sistemas</option>
 				<option value="DGrafico">Diseño Gráfico</option>
@@ -19,12 +19,13 @@
 				<option value="Ciencias">Ciencias</option>
 				<option value="Maestria">Maestría</option>
 			</select>
-			<input type="file"class="form-control mb-3 txt-montserrat-500" name="file" id="customFile"/>
+			<input type="file"class="form-control mb-3 txt-montserrat-500" name="file" id="file"/>
 			<div class="mb-3">
 				<label for="exampleFormControlTextarea1" class="form-label txt-montserrat-500">Descripción</label>
-				<textarea name="description" class="form-control txt-montserrat-500" id="exampleFormControlTextarea1" rows="3"></textarea>
+				<textarea name="description" class="form-control txt-montserrat-500" id="description" rows="3"></textarea>
 			</div>
-			<input class="btn color-white bk-color-yellow txt-montserrat-600" type="submit" name="subir" value="Subir" />
+				<input type="submit" name="submit" class="btn btn-md txt-montserrat-600 color-white bk-color-yellow" value="subir">
+			<!-- <input class="btn color-white bk-color-yellow txt-montserrat-600" type="submit" name="subir" value="Subir" /> -->
 			<a class="btn color-white bk-color-yellow txt-montserrat-600">Ver tesis</a>
 			<a class="btn color-white bk-color-yellow txt-montserrat-600">Salir</a>
 		</form>

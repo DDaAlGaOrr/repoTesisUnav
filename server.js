@@ -4,11 +4,14 @@ const port = 3000
 const cnx = require('./dbConection')
 const session = require('express-session')
 const fs = require('fs')
+const readline = require('readline')
+const {google} = require('googleapis')
 // const bcript = require('bcrypt')
 const md5 = require('blueimp-md5')
 const {
     off
 } = require('./dbConection')
+const { drive } = require('googleapis/build/src/apis/drive')
 /* --------------------------------------------------------------------------------------------------------- */
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({
@@ -85,11 +88,10 @@ app.get('/', (req, res) => {
 app.get('/upload',(req,res)=>{
     res.render('pages/upload')
 })
-app.post('/upload',(req,res)=>{
-    const schoolName = req.body.schoolName
-    const file = req.body.file
-    const description = req.body.description
-    console.log(schoolName)
+app.post('/upload', (req,res) => {
+    let schoolName = req.body.schoolName
+    let file = req.body.file
+    let description = req.body.description
 })
 /* --------------------------------------------------------------------------------------------------------- */
 //config server
